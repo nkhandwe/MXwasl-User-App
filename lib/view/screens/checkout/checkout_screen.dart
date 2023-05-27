@@ -83,7 +83,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
   late bool _isLoggedIn;
   List<CartModel?>? _cartList;
   late bool _isWalletActive;
-  bool isVisible = true;
+  bool isVisible = false;
 
   @override
   void initState() {
@@ -224,6 +224,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                     builder: (couponController) {
                   return GetBuilder<OrderController>(
                       builder: (orderController) {
+                    print(orderController.orderType);
                     double? deliveryCharge = -1;
                     double? charge = -1;
                     double? maxCodOrderAmount;
@@ -586,154 +587,143 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                     : const SizedBox(),
                                                 orderController.orderType ==
                                                         'take_away'
-                                                    ? Container(
-                                                        alignment:
-                                                            Alignment.topLeft,
-                                                        child:
-                                                            Column(children: [
-                                                          Expanded(
-                                                              child: Row(
-                                                                  children: [
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                bottom: 4,
+                                                                top: 4),
+                                                        child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Row(children: [
+                                                                FlutterSwitch(
+                                                                  width: 55.0,
+                                                                  height: 27.0,
+                                                                  toggleSize:
+                                                                      22.0,
+                                                                  borderRadius:
+                                                                      30.0,
+                                                                  padding: 2.0,
+                                                                  valueFontSize:
+                                                                      15.0,
+                                                                  value:
+                                                                      isVisible,
+                                                                  activeColor:
+                                                                      const Color
+                                                                              .fromRGBO(
+                                                                          3,
+                                                                          157,
+                                                                          85,
+                                                                          1),
+                                                                  showOnOff:
+                                                                      false,
+                                                                  onToggle:
+                                                                      (val) {
+                                                                    setState(
+                                                                        () {
+                                                                      isVisible =
+                                                                          val;
+                                                                    });
+                                                                  },
+                                                                ),
+                                                                const SizedBox(
+                                                                    height: 5,
+                                                                    width: 10),
                                                                 const Expanded(
                                                                   child: Text(
-                                                                    'Car Pickup',
+                                                                    'Deliver to My Car',
                                                                     style: TextStyle(
                                                                         fontSize:
-                                                                            18),
+                                                                            15),
                                                                   ),
                                                                 ),
                                                                 const SizedBox(
                                                                   width: 1,
                                                                 ),
-                                                                Expanded(
-                                                                  child:
-                                                                      FlutterSwitch(
-                                                                    valueFontSize:
-                                                                        25.0,
-                                                                    value:
-                                                                        isVisible,
-                                                                    borderRadius:
-                                                                        30.0,
-                                                                    padding:
-                                                                        8.0,
-                                                                    activeColor:
-                                                                        const Color.fromRGBO(
-                                                                            3,
-                                                                            157,
-                                                                            85,
-                                                                            1),
-                                                                    showOnOff:
-                                                                        false,
-                                                                    onToggle:
-                                                                        (val) {
-                                                                      setState(
-                                                                          () {
-                                                                        isVisible =
-                                                                            val;
-                                                                      });
-                                                                    },
+                                                              ]),
+                                                              Visibility(
+                                                                maintainState:
+                                                                    true,
+                                                                maintainSize:
+                                                                    false,
+                                                                maintainAnimation:
+                                                                    true,
+                                                                visible:
+                                                                    isVisible,
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 6.0),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Row(
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child:
+                                                                                MyTextField(
+                                                                              hintText: 'Car Brand'.tr,
+                                                                              inputType: TextInputType.text,
+                                                                              focusNode: _houseNode,
+                                                                              nextFocus: _floorNode,
+                                                                              controller: _houseController,
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              width: Dimensions.paddingSizeSmall),
+                                                                          Expanded(
+                                                                            child:
+                                                                                MyTextField(
+                                                                              hintText: 'Car Color'.tr,
+                                                                              inputType: TextInputType.text,
+                                                                              focusNode: _floorNode,
+                                                                              inputAction: TextInputAction.done,
+                                                                              controller: _floorController,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        width: Dimensions
+                                                                            .paddingSizeSmall,
+                                                                        height:
+                                                                            10,
+                                                                      ),
+                                                                      Row(
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child:
+                                                                                MyTextField(
+                                                                              hintText: 'Car Type'.tr,
+                                                                              inputType: TextInputType.text,
+                                                                              focusNode: _floorNode,
+                                                                              inputAction: TextInputAction.done,
+                                                                              controller: _floorController,
+                                                                            ),
+                                                                          ),
+                                                                          const SizedBox(
+                                                                              width: Dimensions.paddingSizeSmall),
+                                                                          Expanded(
+                                                                            child:
+                                                                                MyTextField(
+                                                                              hintText: 'Licence Plate No'.tr,
+                                                                              inputType: TextInputType.text,
+                                                                              focusNode: _floorNode,
+                                                                              inputAction: TextInputAction.done,
+                                                                              controller: _floorController,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                 ),
-                                                                const SizedBox(
-                                                                    height: 5),
-                                                              ])),
-                                                              Visibility(
-                                                                maintainState: true,
-                                                                maintainSize: false,
-                                                                maintainAnimation: true,
-                                                                visible: isVisible,
-                                                                child: Text("RRRR"),
-                                                              ),                                                             
-                                                          Row(
-                                                            children: [
-                                                              Expanded(
-                                                                child:
-                                                                    MyTextField(
-                                                                  hintText:
-                                                                      'Car Brand'
-                                                                          .tr,
-                                                                  inputType:
-                                                                      TextInputType
-                                                                          .text,
-                                                                  focusNode:
-                                                                      _houseNode,
-                                                                  nextFocus:
-                                                                      _floorNode,
-                                                                  controller:
-                                                                      _houseController,
-                                                                ),
                                                               ),
-                                                              const SizedBox(
-                                                                  width: Dimensions
-                                                                      .paddingSizeSmall),
-                                                              Expanded(
-                                                                child:
-                                                                    MyTextField(
-                                                                  hintText:
-                                                                      'Car Color'
-                                                                          .tr,
-                                                                  inputType:
-                                                                      TextInputType
-                                                                          .text,
-                                                                  focusNode:
-                                                                      _floorNode,
-                                                                  inputAction:
-                                                                      TextInputAction
-                                                                          .done,
-                                                                  controller:
-                                                                      _floorController,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          const SizedBox(
-                                                              width: Dimensions
-                                                                  .paddingSizeSmall),
-                                                          Row(
-                                                            children: [
-                                                              Expanded(
-                                                                child:
-                                                                    MyTextField(
-                                                                  hintText:
-                                                                      'Car Type'
-                                                                          .tr,
-                                                                  inputType:
-                                                                      TextInputType
-                                                                          .text,
-                                                                  focusNode:
-                                                                      _floorNode,
-                                                                  inputAction:
-                                                                      TextInputAction
-                                                                          .done,
-                                                                  controller:
-                                                                      _floorController,
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                  width: Dimensions
-                                                                      .paddingSizeSmall),
-                                                              Expanded(
-                                                                child:
-                                                                    MyTextField(
-                                                                  hintText:
-                                                                      'Licence Plate No'
-                                                                          .tr,
-                                                                  inputType:
-                                                                      TextInputType
-                                                                          .text,
-                                                                  focusNode:
-                                                                      _floorNode,
-                                                                  inputAction:
-                                                                      TextInputAction
-                                                                          .done,
-                                                                  controller:
-                                                                      _floorController,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ]))
-                                                    : SizedBox(),
+                                                            ]),
+                                                      )
+                                                    : const SizedBox(),
                                               ]),
 
                                         const SizedBox(

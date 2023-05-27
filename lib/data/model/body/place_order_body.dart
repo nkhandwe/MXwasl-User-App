@@ -10,6 +10,10 @@ class PlaceOrderBody {
   String? _orderType;
   String? _paymentMethod;
   String? _orderNote;
+  String? _carBrand;
+  String? _carColor;
+  String? _carType;
+  String? _carPlateNo;
   String? _couponCode;
   int? _storeId;
   double? _distance;
@@ -30,39 +34,47 @@ class PlaceOrderBody {
   String? _floor;
   String? _dmTips;
 
-  PlaceOrderBody(
-      {required List<Cart> cart,
-        required double? couponDiscountAmount,
-        required String? couponCode,
-        required double orderAmount,
-        required String? orderType,
-        required String paymentMethod,
-        required int? storeId,
-        required double? distance,
-        required String? scheduleAt,
-        required double? discountAmount,
-        required double taxAmount,
-        required String orderNote,
-        required String? address,
-        required AddressModel? receiverDetails,
-        required String? latitude,
-        required String? longitude,
-        required String contactPersonName,
-        required String? contactPersonNumber,
-        required String? addressType,
-        required String? parcelCategoryId,
-        required String? chargePayer,
-        required String streetNumber,
-        required String house,
-        required String floor,
-        required String dmTips,
-      }) {
+  PlaceOrderBody({
+    required List<Cart> cart,
+    required double? couponDiscountAmount,
+    required String? couponCode,
+    required double orderAmount,
+    required String? orderType,
+    required String paymentMethod,
+    required int? storeId,
+    required double? distance,
+    required String? scheduleAt,
+    required double? discountAmount,
+    required double taxAmount,
+    required String orderNote,
+    required String carBrand,
+    required String carColor,
+    required String carType,
+    required String carPlateNo,
+    required String? address,
+    required AddressModel? receiverDetails,
+    required String? latitude,
+    required String? longitude,
+    required String contactPersonName,
+    required String? contactPersonNumber,
+    required String? addressType,
+    required String? parcelCategoryId,
+    required String? chargePayer,
+    required String streetNumber,
+    required String house,
+    required String floor,
+    required String dmTips,
+  }) {
     _cart = cart;
     _couponDiscountAmount = couponDiscountAmount;
     _orderAmount = orderAmount;
     _orderType = orderType;
     _paymentMethod = paymentMethod;
     _orderNote = orderNote;
+    _carBrand = carBrand;
+    _carColor = carColor;
+    _carType = carType;
+    _carPlateNo = carPlateNo;
     _couponCode = couponCode;
     _storeId = storeId;
     _distance = distance;
@@ -90,6 +102,10 @@ class PlaceOrderBody {
   String? get orderType => _orderType;
   String? get paymentMethod => _paymentMethod;
   String? get orderNote => _orderNote;
+  String? get carBrand => _carBrand;
+  String? get carColor => _carColor;
+  String? get carType => _carType;
+  String? get carPlateNo => _carPlateNo;
   String? get couponCode => _couponCode;
   int? get storeId => _storeId;
   double? get distance => _distance;
@@ -121,6 +137,10 @@ class PlaceOrderBody {
     _orderType = json['order_type'];
     _paymentMethod = json['payment_method'];
     _orderNote = json['order_note'];
+    _carBrand = json['car_brand'];
+    _carColor = json['car_color'];
+    _carType = json['car_type'];
+    _carPlateNo = json['plate_no'];
     _couponCode = json['coupon_code'];
     _storeId = json['store_id'];
     _distance = json['distance'];
@@ -128,7 +148,9 @@ class PlaceOrderBody {
     _discountAmount = json['discount_amount'].toDouble();
     _taxAmount = json['tax_amount'].toDouble();
     _address = json['address'];
-    _receiverDetails = json['receiver_details'] != null ? AddressModel.fromJson(json['receiver_details']) : null;
+    _receiverDetails = json['receiver_details'] != null
+        ? AddressModel.fromJson(json['receiver_details'])
+        : null;
     _latitude = json['latitude'];
     _longitude = json['longitude'];
     _contactPersonName = json['contact_person_name'];
@@ -147,23 +169,27 @@ class PlaceOrderBody {
     if (_cart != null) {
       data['cart'] = jsonEncode(_cart!.map((v) => v.toJson()).toList());
     }
-    if(_couponDiscountAmount != null) {
+    if (_couponDiscountAmount != null) {
       data['coupon_discount_amount'] = _couponDiscountAmount.toString();
     }
     data['order_amount'] = _orderAmount.toString();
+    data['car_brand'] = _carBrand.toString();
+    data['car_color'] = _carColor.toString();
+    data['car_type'] = _carType.toString();
+    data['plate_no'] = _carPlateNo.toString();
     data['order_type'] = _orderType!;
     data['payment_method'] = _paymentMethod!;
-    if(_orderNote != null && _orderNote!.isNotEmpty) {
+    if (_orderNote != null && _orderNote!.isNotEmpty) {
       data['order_note'] = _orderNote!;
     }
-    if(_couponCode != null) {
+    if (_couponCode != null) {
       data['coupon_code'] = _couponCode!;
     }
-    if(_storeId != null) {
+    if (_storeId != null) {
       data['store_id'] = _storeId.toString();
     }
     data['distance'] = _distance.toString();
-    if(_scheduleAt != null) {
+    if (_scheduleAt != null) {
       data['schedule_at'] = _scheduleAt!;
     }
     data['discount_amount'] = _discountAmount.toString();
@@ -206,14 +232,14 @@ class Cart {
   Cart(
       int? itemId,
       int? itemCampaignId,
-        String price,
-        String variant,
-        List<Variation>? variation,
-        List<OrderVariation>? variations,
-        int? quantity,
-        List<int?> addOnIds,
-        List<AddOns>? addOns,
-        List<int?> addOnQtys) {
+      String price,
+      String variant,
+      List<Variation>? variation,
+      List<OrderVariation>? variations,
+      int? quantity,
+      List<int?> addOnIds,
+      List<AddOns>? addOns,
+      List<int?> addOnQtys) {
     _itemId = itemId;
     _itemCampaignId = itemCampaignId;
     _price = price;
@@ -241,12 +267,14 @@ class Cart {
     _itemCampaignId = json['item_campaign_id'];
     _price = json['price'];
     _variant = json['variant'];
-    if (json['variation'] != null && json['variation'].isNotEmpty && json['variation'][0]['price'] != null) {
+    if (json['variation'] != null &&
+        json['variation'].isNotEmpty &&
+        json['variation'][0]['price'] != null) {
       _variation = [];
       json['variation'].forEach((v) {
         _variation!.add(Variation.fromJson(v));
       });
-    }else if (json['variation'] != null) {
+    } else if (json['variation'] != null) {
       _variations = [];
       json['variation'].forEach((v) {
         _variations!.add(OrderVariation.fromJson(v));
@@ -271,7 +299,7 @@ class Cart {
     data['variant'] = _variant;
     if (_variation != null) {
       data['variation'] = _variation!.map((v) => v.toJson()).toList();
-    }else if(_variations != null) {
+    } else if (_variations != null) {
       data['variation'] = _variations!.map((v) => v.toJson()).toList();
     }
     data['quantity'] = _quantity;
@@ -292,8 +320,9 @@ class OrderVariation {
 
   OrderVariation.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    values =
-    json['values'] != null ? OrderVariationValue.fromJson(json['values']) : null;
+    values = json['values'] != null
+        ? OrderVariationValue.fromJson(json['values'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {

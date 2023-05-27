@@ -49,6 +49,10 @@ class OrderModel {
   String? paymentMethod;
   String? couponCode;
   String? orderNote;
+  String? carBrand;
+  String? carColor;
+  String? carType;
+  String? carPlateNo;
   String? orderType;
   String? createdAt;
   String? updatedAt;
@@ -97,6 +101,10 @@ class OrderModel {
         this.paymentMethod,
         this.couponCode,
         this.orderNote,
+        this.carBrand,
+        this.carColor,
+        this.carType,
+        this.carPlateNo,
         this.orderType,
         this.createdAt,
         this.updatedAt,
@@ -146,6 +154,10 @@ class OrderModel {
     paymentMethod = json['payment_method'];
     couponCode = json['coupon_code'];
     orderNote = json['order_note'];
+    carBrand = json['car_brand'];
+    carColor = json['car_color'];
+    carPlateNo = json['plate_no'];
+    carType = json['car_type'];
     orderType = json['order_type'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -206,7 +218,10 @@ class OrderModel {
     data['payment_method'] = paymentMethod;
     data['coupon_code'] = couponCode;
     data['order_note'] = orderNote;
-    data['order_type'] = orderType;
+    data['car_brand'] = carBrand;
+    data['car_color'] = carColor;
+    data['car_type'] = carType;
+    data['plate_no'] = carPlateNo;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['delivery_charge'] = deliveryCharge;

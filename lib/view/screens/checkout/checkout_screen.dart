@@ -73,9 +73,17 @@ class CheckoutScreenState extends State<CheckoutScreen> {
   final TextEditingController _houseController = TextEditingController();
   final TextEditingController _floorController = TextEditingController();
   final TextEditingController _tipController = TextEditingController();
+  final TextEditingController _carBrandController = TextEditingController();
+  final TextEditingController _carColorController = TextEditingController();
+  final TextEditingController _carTypeController = TextEditingController();
+  final TextEditingController _carPlateNoController = TextEditingController();
   final FocusNode _streetNode = FocusNode();
   final FocusNode _houseNode = FocusNode();
   final FocusNode _floorNode = FocusNode();
+  final FocusNode _carBrandNode = FocusNode();
+  final FocusNode _carColorNode = FocusNode();
+  final FocusNode _carTypeNode = FocusNode();
+  final FocusNode _carPlateNoNode = FocusNode();
 
   double? _taxPercent = 0;
   bool? _isCashOnDeliveryActive = false;
@@ -666,9 +674,9 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                 MyTextField(
                                                                               hintText: 'Car Brand'.tr,
                                                                               inputType: TextInputType.text,
-                                                                              focusNode: _houseNode,
-                                                                              nextFocus: _floorNode,
-                                                                              controller: _houseController,
+                                                                              focusNode: _carBrandNode,
+                                                                              nextFocus: _carColorNode,
+                                                                              controller: _carBrandController,
                                                                             ),
                                                                           ),
                                                                           const SizedBox(
@@ -678,9 +686,9 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                 MyTextField(
                                                                               hintText: 'Car Color'.tr,
                                                                               inputType: TextInputType.text,
-                                                                              focusNode: _floorNode,
-                                                                              inputAction: TextInputAction.done,
-                                                                              controller: _floorController,
+                                                                              focusNode: _carColorNode,
+                                                                              nextFocus: _carTypeNode,
+                                                                              controller: _carColorController,
                                                                             ),
                                                                           ),
                                                                         ],
@@ -698,9 +706,9 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                 MyTextField(
                                                                               hintText: 'Car Type'.tr,
                                                                               inputType: TextInputType.text,
-                                                                              focusNode: _floorNode,
-                                                                              inputAction: TextInputAction.done,
-                                                                              controller: _floorController,
+                                                                              focusNode: _carTypeNode,
+                                                                              nextFocus: _carPlateNoNode,
+                                                                              controller: _carTypeController,
                                                                             ),
                                                                           ),
                                                                           const SizedBox(
@@ -710,9 +718,8 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                                                                 MyTextField(
                                                                               hintText: 'Licence Plate No'.tr,
                                                                               inputType: TextInputType.text,
-                                                                              focusNode: _floorNode,
-                                                                              inputAction: TextInputAction.done,
-                                                                              controller: _floorController,
+                                                                              focusNode: _carPlateNoNode,
+                                                                              controller: _carPlateNoController,
                                                                             ),
                                                                           ),
                                                                         ],
@@ -2089,6 +2096,10 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                             scheduleEndDate),
                                 orderAmount: total,
                                 orderNote: _noteController.text,
+                                carColor: _carColorController.text,
+                                carBrand: _carBrandController.text,
+                                carType: _carTypeController.text,
+                                carPlateNo: _carPlateNoController.text,
                                 orderType: orderController.orderType,
                                 paymentMethod: orderController
                                             .paymentMethodIndex ==
@@ -2123,6 +2134,7 @@ class CheckoutScreenState extends State<CheckoutScreen> {
                                     _streetNumberController.text.trim(),
                                 house: _houseController.text.trim(),
                                 floor: _floorController.text.trim(),
+                                
                                 discountAmount: discount,
                                 taxAmount: tax,
                                 receiverDetails: null,
